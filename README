@@ -1,1 +1,47 @@
-RPN Calculator
+Reverse Polish Notation Calculator
+
+* credit: heavily based on Denis Ritchie and Brian Kernigan's c programming book but modified according to the exercieses
+
+Introduction:
+
+To make a calculation such as 5 * 4 you would enter "5 4 *" then ENTER without the quotes. After hitting enter this adds it to the stack. 
+To see the answer we can hit enter again or type "?" and ENTER. Another example of a calculation. Let's say you wanted to calculate 
+"(5 + 3) / (2) * 6". In this example we would enter "5 3 2 6 + / *". In esscence you enter all the numbers and the operators are entered 
+after in the order in which you want them applied. So how the calculator calculates this is 5 + 3. It stores the answer which is 8. Then it 
+takes 8 / 2 which is 4 and it stores this. Then it takes 4 * 6 which is 24. Lastly it stores this. If you wanted to do more with this final
+answer you can. For instance you wanted to subtract 3. You would simply enter "3 -" and ENTER without the quotes. Then the stack would be
+updated to 21. To display this calculated result you can type "?" and ENTER to display but keep it on the stack. You can also hit ENTER twice
+which displays the answer as well as pops it off the stack. You would want to do this if you are done making your calculation. This describes
+how to do basic arithmetic calculations.
+
+
+Math Functions:
+
+What if you wanted do apply a mathematical function like sine or log? You can do this as well with the functions. To calculate the result
+of a mathematical function you would type the function followed by the number you would want. Example: 4 sqrt would calculate sqrt(2) and 
+store in the stack. Another example:  3.14159 2 / sin would calculate the sin of pi/2.
+List of mathematical functions and required inputs:
+sin: takes in angle (in radians) and returns ratio of opposite/hypotenuse lengths of a right triangle.
+cos: takes in angle (in radians) and returns ratio of adjacent/hypotenuse lenghts of a right triangle.
+tan: takes in angle (in radians) and returns ratio of opposite/adjacent lengths of a right triangle.
+asin: takes in ratio of opposite/hypotenuse of a right triangle and returns the angle (in radians).
+acos: takes in ratio of adjacent/hypotenuse of a right triangle and returns the angle (in radians).
+atan: takes in ratio of opposite/adjacent of a right triangle and returns the angle (in radians).
+exp: takes INPUT and returns e^(INPUT).
+log: calculates the logarithm. This function takes two inputs: the number and the base and returns the exponent. Example you want to calculate lb(32). 
+	Enter "32 2 log" without quotes and hit ENTER.
+sqrt: takes a number and calculates the square root of that number. 
+ceil: takes a decimal number say 3.0001 and rounds it up to the next nearest whole number. 
+floor: takes a decimal number say 3.0001 and throws away the decimal part. 
+abs: takes a number and returns the absolute value of the number. 
+
+
+Custom Variables:
+
+You can store variables you use a lot in any of the lowercase letters a-z. To do this you would type the letter the equal sign and the 
+number you want to store. For instance if you wanted to store euler's number 2.71828 in e you would type "e=2.71828" and ENTER. Now if you did
+a calculation every time you type e it is replaced with 2.71828.
+
+To Exit:
+
+To exit the program simply hit CTRL+D or CTRL+C.  
