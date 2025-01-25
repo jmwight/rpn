@@ -4,8 +4,6 @@
 #include <math.h> // math functions like sin, sqrt, log etc.
 #include <string.h> // for strlen
 
-//#define CUSTVARMAX	26
-
 int cust_var[CUSTVARMAX];
 
 /* reverse Polish calculator */
@@ -190,7 +188,7 @@ int main()
             break;
 
         default:
-            printf("error: unknown command %s\n", s);
+            printf("error: unknown command \"%s\"\n", s);
             break;
         }
         /* this is a variable to keep track if enter got hit twice so we only print calculated

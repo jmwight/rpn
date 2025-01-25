@@ -3,7 +3,7 @@
 #define BUFSIZE 100
 
 static char buf[BUFSIZE]; // buffer for ungetch
-static int bufp = 1; // next free position in buf
+static int bufp = 0; // next free position in buf
 
 /* getch: get a (possibly pushed back) character */
 int getch(void)
