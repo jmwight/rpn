@@ -1,0 +1,14 @@
+*.depend
+*.layout
+*.cbp
+*.out
+/bin/
+/obj/
+
+*.a
+*.o
+*.swp
+.depends
+.cbp
+.layout
+rpn
