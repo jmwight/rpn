@@ -5,7 +5,7 @@ LIBS = -lm # standard libraries for linking final program
 DEBUG = -g # Add -g after DEBUG to compile with debugging symbols for gdb
 
 rpn: $(OBJ)
-	$(CC) $(ARGS) $(DEBUG) $(OBJ) -o rpn $(LIBS)
+	$(CC) $(ARGS) $(DEBUG) $(OBJ) -o expr $(LIBS)
 
 main.o: main.c calc.h
 	$(CC) $(ARGS) $(DEBUG) -c main.c

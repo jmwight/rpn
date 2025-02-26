@@ -2,56 +2,38 @@
 #include <ctype.h>
 #include <string.h> // for strcmp which is required to see if typed letters matches a function (i.e. sin, cos, log, etc)
 #include <stdio.h> // for EOF definition
+#include <stdlib.h> // for atof
 
-/* getop: get next operator or numeric operand */
-int getop(char s[])
+#define MAXNUMLEN	30 //TODO: DETERMINE IF THIS IS A GOOD NUMBER OF NOT
+#define FUNCNAMEMAXLEN	4
+
+/* getop: returns next operator type or numeric operand. If it's numeric number will be added to *num pointer */
+int getop(char *arg, double *num)
 {
-    static int c; /* to preserve the current character thus eliminating the need for 8 */
-    int i, c_nxt, is_cust_var;
-    is_cust_var = 0;
-    char var;
-
-    /* skip all the empty space */
-    while((s[0] = c = getch()) == ' ' || c == '\t')
-        ;
-
-    s[1] = '\0'; // to end the string if necessary
-    i = 0;
+    char numstr[MAXNUMLEN];
+    char *numstr_pos = numstr;
 
     /* find if it's not a digit or a decimal */
-    if(!isdigit(c) && c != '.')
+    if(!isdigit(*arg) && *arg != '.')
     {
-        /* first check if '\n'. If it is we have reached the end of the input buffer and running getch will open another buffer */
-        if(c == '\n')
-            return c;
-        else
-            c_nxt = getch();
-
-        /* there is no next character it's just a statement such as 2 3 + */
-        if(c_nxt == EOF || c_nxt == '\n' || c_nxt == ' ')
+        if((*arg == '-' || *arg == '+') && isdigit(arg[1]))
         {
-            char c_cur = c;
-            c = c_nxt;
-            //ungetch(c_nxt);
-            return c_cur;
-        }
-        /* see if its a postive or negative sign followed by a number or decimal */
-        if((c == '-' || c == '+') && isdigit(c_nxt))
-        {
-            s[++i] = c_nxt;
-            c = c_nxt;
+            *numstr_pos = *arg;
+	    	++arg;
+	    	++numstr_pos;
         }
         /* to detect if letters for functions */
-        else if(isalpha(c) && isalpha(c_nxt))
+        else if(isalpha(arg[0]) && isalpha(arg[1]))
         {
-            char func[6]; // to store name of mathematical function i.e. sin, log, etc.
-            func[0] = tolower(c);
-            func[1] = tolower(c_nxt);
-            int j = 2;
-            while(isalpha(c = getch())) // get the rest of the letters
-                func[j++] = tolower(c);
-            //ungetch(c);
-            func[j] = '\0';
+            char func[FUNCNAMEMAXLEN + 1]; // to store name of mathematical function i.e. sin, log, etc.
+			int fi = 0;
+            while(isalpha(*arg)) // get the rest of the letters
+	    	{
+				*(func+fi++) = *arg; //REDFLAG
+				//func[fi++] = *arg;
+				++arg;
+	    	}
+            func[fi] = '\0';
 
             /* go through and see if the letters match up to one of the functions */
             if(strcmp(func, "sin") == 0) // strcmp = 0 when the strings are equal
@@ -80,55 +62,30 @@ int getop(char s[])
                 return ABS;
             else
                 printf("error: unrecognized function.\n");
-        }
-        /* we are setting a variable */
-        else if(isalpha(c) && c_nxt == '=')
-        {
-            if(c >= 'a' && c <= 'z')
-            {
-                var = c;
-                is_cust_var = 1; // boolean for we have a custom variable
-                if((c = getch()) == EOF || c == '\n' || c == ' ')
-                {
-                    //ungetch(c);
-                }
-                else
-                {
-                    s[0] = c;
-                }
-            }
-            else
-            {
-                printf("error: variable must be a-z (no capitals)\n");
-                is_cust_var = 0;
-            }
-        }
+        } 
         else
         {
-            return c; /* not a number hopefully an operand which we will test for in the big switch in main */
+            return *arg; /* not a number hopefully an operand which we will test for in the big switch in main */
         }
     }
 
     /* collects number */
-    if(isdigit(c)) /* collect integer part */
-        while(isdigit(c = getch()))
-            s[++i] = c;
-    if(c == '.')
-        while(isdigit(c = getch()))
-            s[++i] = c;
+    /* collect integer part */
+    while(isdigit(*arg))
+	{
+		*numstr_pos = *arg;
+		++arg;
+		++numstr_pos;
+	}	
+    if(*arg == '.')
+		while(isdigit(*++arg))
+		{
+            *numstr_pos = *arg;
+			++numstr_pos;
+		}
+    *numstr_pos = '\0';
 
-    /* we append the character at the end of the number string if we are setting a variable. We will unpack
-     * this in main */
-    if(is_cust_var)
-    {
-        s[++i] = var;
-        s[++i] = '\0';
-        return VAR;
-    }
+    *num = atof(numstr);
 
-    s[++i] = '\0';
-
-    if(c != EOF)
-        //ungetch(c); // we went too far rewind by adding it to the separate memory buffer we check first
     return NUMBER; // success that we found a number and not something else like operand for instance
 }
