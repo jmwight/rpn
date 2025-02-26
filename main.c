@@ -85,11 +85,16 @@ int main(int argc, char *argv[])
             break;
     	}
     }
-    //TODO: PRINT THE RESULT AND EXIT 
+
+    /* print final result on screen */
     printf("%f\n", pop());
+
+    /* if unused numbers left in stack print warning message and left over numbers */
     if(stacksize() > 0)
     {
-	    printf("Warning: stack still has elements left!\n");
+	    printf("Warning: stack has unused elements left:\n");
+	    while(stacksize() > 0)
+		    printf("%f\n", pop());
 	    return -1;
     }
     return 0;

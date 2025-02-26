@@ -76,7 +76,8 @@ int getop(char *arg, double *num)
 		*numstr_pos = *arg;
 		++arg;
 		++numstr_pos;
-	}	
+	}
+	/* collect decimal part */
     if(*arg == '.')
 		while(isdigit(*++arg))
 		{
