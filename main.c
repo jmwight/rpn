@@ -9,7 +9,6 @@ int main(int argc, char *argv[])
     int type;
     double num, op2;
 
-    printf("argc = %d\n", argc);
     while(--argc > 0)
     {
 	type = getop(*++argv, &num);
@@ -88,5 +87,10 @@ int main(int argc, char *argv[])
     }
     //TODO: PRINT THE RESULT AND EXIT 
     printf("%f\n", pop());
+    if(stacksize() > 0)
+    {
+	    printf("Warning: stack still has elements left!\n");
+	    return -1;
+    }
     return 0;
 }
