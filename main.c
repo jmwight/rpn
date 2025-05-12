@@ -45,7 +45,7 @@ int main()
         case '\n':
             if(type_prev == type)
                 printf("\t%.8g\n", pop());
-                break;
+            break;
         /** Stack operations. Key:
           * '?' = bringing up last thing on the stack,
           * '!' = clearing the stack

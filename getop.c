@@ -128,7 +128,7 @@ int getop(char s[])
 
     s[++i] = '\0';
 
-    if(c != EOF)
+    //if(c != EOF)
         //ungetch(c); // we went too far rewind by adding it to the separate memory buffer we check first
     return NUMBER; // success that we found a number and not something else like operand for instance
 }
