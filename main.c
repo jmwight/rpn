@@ -38,6 +38,25 @@ int main()
             else
                 printf("error: zero divisor\n");
             break;
+	case '^':
+	    int base, pow, result;
+	    pow = pop();
+	    result = base = pop();
+	    if(pow > 0)
+	    {
+	    	while(--pow)
+		    result *= base;
+	    }
+	    else if(pow < 0)
+	    {
+		    pow *= -1;
+		    while(--pow)
+			    result /= base;
+	    }
+	    else /* (pow == 0) */
+		    result = 1;
+	    push(result);
+	    break;
         case '%':
             op2 = pop();
             push((int)pop() % (int)op2);
